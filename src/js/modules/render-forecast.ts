@@ -9,9 +9,9 @@ export default function (
   data: OpenmeteoResponse
 ): void {
   const currentHour: string = data.current_weather.time;
-  const forecastPoints: number = 8;
+  const forecastPoints = 8;
 
-  let step: number = 0;
+  let step = 0;
   let currentIndex: number | null = null;
 
   // Find index of current hour
