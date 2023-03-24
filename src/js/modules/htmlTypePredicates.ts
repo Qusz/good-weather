@@ -30,11 +30,18 @@ function isHTMLParagraphElement(
   return node !== null;
 }
 
+function isHTMLSpanElement(
+  node: HTMLSpanElement | null
+): node is HTMLSpanElement {
+  return node !== null;
+}
+
 export {
   isHTMLElement,
   isHTMLFormElement,
   isHTMLDivElement,
   isHTMLInputElement,
   isHTMLUListElement,
-  isHTMLParagraphElement
+  isHTMLParagraphElement,
+  isHTMLSpanElement
 };
