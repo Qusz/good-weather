@@ -8,7 +8,7 @@ import {
   isHTMLDivElement,
   isHTMLSpanElement,
   isHTMLElement
-} from './htmlTypePredicates';
+} from './html-type-predicates';
 
 type Elements = {
   currentTemperature: HTMLDivElement | null;

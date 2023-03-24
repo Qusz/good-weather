@@ -1,4 +1,4 @@
-import { isHTMLParagraphElement } from './htmlTypePredicates';
+import { isHTMLParagraphElement } from './html-type-predicates';
 
 export default function (city: string, country: string): void {
   const element: HTMLParagraphElement | null = document.querySelector(

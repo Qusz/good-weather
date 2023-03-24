@@ -21,7 +21,7 @@ import {
   isHTMLFormElement,
   isHTMLInputElement,
   isHTMLUListElement
-} from './htmlTypePredicates';
+} from './html-type-predicates';
 
 type Elements = {
   searchForm: HTMLFormElement | null;

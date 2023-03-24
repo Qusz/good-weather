@@ -9,7 +9,7 @@ import renderCurrentWeather from './render-current-weather';
 import renderForecast from './render-forecast';
 import renderLocation from './render-location';
 import renderCurrentDatetime from './render-current-datetime';
-import { isHTMLElement } from './htmlTypePredicates';
+import { isHTMLElement } from './html-type-predicates';
 
 export default function (): void {
   document.addEventListener('DOMContentLoaded', () => {

@@ -1,4 +1,4 @@
-import { isHTMLElement } from '../modules/htmlTypePredicates';
+import { isHTMLElement } from '../modules/html-type-predicates';
 
 export default function (element: HTMLElement | null): void {
   if (isHTMLElement(element)) {

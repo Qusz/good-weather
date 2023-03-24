@@ -1,6 +1,6 @@
 import type { SetNonNullable } from 'type-fest';
 
-import { isHTMLDivElement, isHTMLSpanElement } from './htmlTypePredicates';
+import { isHTMLDivElement, isHTMLSpanElement } from './html-type-predicates';
 
 type Elements = {
   parent: HTMLDivElement | null;
