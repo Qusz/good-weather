@@ -1,4 +1,5 @@
 import debounce from 'lodash.debounce';
+import type { SetNonNullable } from 'type-fest';
 
 import { LocalStorageData } from 'types/types';
 
@@ -13,15 +14,21 @@ import renderCurrentWeather from './render-current-weather';
 import renderForecast from './render-forecast';
 import renderLocation from './render-location';
 import renderCurrentDatetime from './render-current-datetime';
-import { SetNonNullable } from 'type-fest';
-import { isHTMLDivElement, isHTMLElement, isHTMLFormElement, isHTMLInputElement, isHTMLUListElement } from './htmlTypePredicates';
+
+import {
+  isHTMLDivElement,
+  isHTMLElement,
+  isHTMLFormElement,
+  isHTMLInputElement,
+  isHTMLUListElement
+} from './htmlTypePredicates';
 
 type Elements = {
-    searchForm: HTMLFormElement | null;
-    searchResultsParent: HTMLDivElement | null;
-    searchInput: HTMLInputElement | null;
-    searchResultsList: HTMLUListElement | null;
-    tableBody: HTMLElement | null;
+  searchForm: HTMLFormElement | null;
+  searchResultsParent: HTMLDivElement | null;
+  searchInput: HTMLInputElement | null;
+  searchResultsList: HTMLUListElement | null;
+  tableBody: HTMLElement | null;
 };
 
 type GuaranteedElements = SetNonNullable<Elements>;
@@ -29,12 +36,16 @@ type GuaranteedElements = SetNonNullable<Elements>;
 /*
  * Here we can compose a type predicate out of simple type predicates.
  */
-function isGuaranteedElements(elements: Elements | GuaranteedElements): elements is GuaranteedElements {
-    return isHTMLFormElement(elements.searchForm) &&
-        isHTMLDivElement(elements.searchResultsParent) &&
-        isHTMLInputElement(elements.searchInput) &&
-        isHTMLUListElement(elements.searchResultsList) &&
-        isHTMLElement(elements.tableBody);
+function isGuaranteedElements(
+  elements: Elements | GuaranteedElements
+): elements is GuaranteedElements {
+  return (
+    isHTMLFormElement(elements.searchForm) &&
+    isHTMLDivElement(elements.searchResultsParent) &&
+    isHTMLInputElement(elements.searchInput) &&
+    isHTMLUListElement(elements.searchResultsList) &&
+    isHTMLElement(elements.tableBody)
+  );
 }
 
 export default function (): void {
@@ -61,7 +72,13 @@ export default function (): void {
    * Here we collect all of the elements into a single object.
    * The program doesn't require us to do that but it means we can make a single check for missing elements.
    */
-  const elements: Elements = { searchForm, searchResultsParent, searchInput, searchResultsList, tableBody };
+  const elements: Elements = {
+    searchForm,
+    searchResultsParent,
+    searchInput,
+    searchResultsList,
+    tableBody
+  };
 
   if (isGuaranteedElements(elements)) {
     /*
@@ -174,7 +191,6 @@ export default function (): void {
     elements.searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
     });
-
   } else {
     // TODO: handle error properly.
     window.alert('Unexpected Error: Some elements are missing.');
