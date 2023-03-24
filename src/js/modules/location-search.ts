@@ -1,7 +1,6 @@
 import debounce from 'lodash.debounce';
-import type { SetNonNullable } from 'type-fest';
 
-import { LocalStorageData } from 'types/types';
+import { LocalStorageData, GuaranteedElements } from 'types/types';
 
 import clearHTML from 'utils/clear-html';
 import showAlert from 'utils/show-alert';
@@ -31,14 +30,9 @@ type Elements = {
   tableBody: HTMLElement | null;
 };
 
-type GuaranteedElements = SetNonNullable<Elements>;
-
-/*
- * Here we can compose a type predicate out of simple type predicates.
- */
 function isGuaranteedElements(
-  elements: Elements | GuaranteedElements
-): elements is GuaranteedElements {
+  elements: Elements | GuaranteedElements<Elements>
+): elements is GuaranteedElements<Elements> {
   return (
     isHTMLFormElement(elements.searchForm) &&
     isHTMLDivElement(elements.searchResultsParent) &&
