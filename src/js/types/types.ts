@@ -1,3 +1,5 @@
+import type { SetNonNullable } from 'type-fest';
+
 interface GenericObject {
   [key: string]: any;
 }
@@ -45,6 +47,8 @@ interface LocalStorageData {
   lon: string;
 }
 
+type GuaranteedElements<T> = SetNonNullable<T>;
+
 type DateTimeType = 'short' | 'long';
 
 export {
@@ -56,5 +60,6 @@ export {
   DateTimeType,
   ElementsSelector,
   LocalStorageData,
-  GeoJSResponse
+  GeoJSResponse,
+  GuaranteedElements
 };
