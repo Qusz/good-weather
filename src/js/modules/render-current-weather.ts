@@ -3,9 +3,7 @@ import getWeatherStatus from 'utils/weather-status';
 import getWindDirection from 'utils/get-wind-direction';
 import pickIcon from 'utils/pick-icon';
 
-import type { SetNonNullable } from 'type-fest';
-
-import { OpenmeteoResponse } from 'types/types';
+import { OpenmeteoResponse, GuaranteedElements } from 'types/types';
 import {
   isHTMLDivElement,
   isHTMLSpanElement,
@@ -24,15 +22,13 @@ type Elements = {
   icon: HTMLElement | null;
 };
 
-type GuaranteedElements = SetNonNullable<Elements>;
-
 type WeatherData = {
   [key: string]: string;
 };
 
 function isGuaranteedElements(
-  elements: Elements | GuaranteedElements
-): elements is GuaranteedElements {
+  elements: Elements | GuaranteedElements<Elements>
+): elements is GuaranteedElements<Elements> {
   return (
     isHTMLDivElement(elements.currentTemperature) &&
     isHTMLDivElement(elements.currentWeather) &&
