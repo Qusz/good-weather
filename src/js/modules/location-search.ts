@@ -181,7 +181,6 @@ export default function (): void {
       e.preventDefault();
     });
   } else {
-    // TODO: handle error properly.
-    window.alert('Unexpected Error: Some elements are missing.');
+    showAlert('Unexpected Error: Some DOM elements are missing.');
   }
 }
