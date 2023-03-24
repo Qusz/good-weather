@@ -3,13 +3,9 @@ import getWeatherStatus from 'utils/weather-status';
 
 import { OpenmeteoResponse } from 'types/types';
 
-export default function (data: OpenmeteoResponse): void {
+export default function (tableBody: HTMLElement, data: OpenmeteoResponse): void {
   const currentHour: string = data.current_weather.time;
   const forecastPoints: number = 8;
-
-  const tableBody: HTMLElement | null = document.querySelector(
-    '[data-forecast-table-body]'
-  );
 
   let step: number = 0;
   let currentIndex: number | null = null;
@@ -21,8 +17,12 @@ export default function (data: OpenmeteoResponse): void {
     }
   });
 
+  /*
+   * No more worries about whether or not tableBody is null.
+   * It is a simple improvement here.  In a larger, or more complicated program, the overall benefit is much greater.
+   */
   // Clear previous data if any
-  if (tableBody?.innerHTML) {
+  if (tableBody.innerHTML) {
     tableBody.innerHTML = '';
   }
 
@@ -43,6 +43,10 @@ export default function (data: OpenmeteoResponse): void {
       </td>
     `;
 
-    tableBody?.appendChild(newTableRow);
+    /*
+     * No more worries about whether or not tableBody is null.
+     * It is a simple improvement here.  In a larger, or more complicated program, the overall benefit is much greater.
+     */
+    tableBody.appendChild(newTableRow);
   }
 }
