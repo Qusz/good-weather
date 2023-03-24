@@ -68,10 +68,6 @@ export default function (): void {
     '[data-forecast-table-body]'
   );
 
-  /*
-   * Here we collect all of the elements into a single object.
-   * The program doesn't require us to do that but it means we can make a single check for missing elements.
-   */
   const elements: Elements = {
     searchForm,
     searchResultsParent,
@@ -81,13 +77,6 @@ export default function (): void {
   };
 
   if (isGuaranteedElements(elements)) {
-    /*
-     * Now we know that none of our elements are null.
-     * If we refer to the properties of `elements` then TypeScript will not complain.
-     * If we made the mistake of referring to, for example, `searchForm` then TypeScript would still complain and
-     * we would need to do various untidy things like `!`, `?`, `as` and so on.
-     */
-
     // Using lodash debounce to avoid spamming the API with requests
     const handleSearch = debounce(() => {
       const query: string | undefined = elements.searchInput.value;
