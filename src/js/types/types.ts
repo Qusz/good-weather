@@ -38,10 +38,6 @@ interface ElementsSelector {
   [key: string]: HTMLElement | null;
 }
 
-interface CountryList {
-  [key: string]: string;
-}
-
 interface LocalStorageData {
   city: string;
   country: string;
@@ -57,7 +53,6 @@ export {
   NominatimResponse,
   OpenmeteoResponse,
   WorldtimeResponse,
-  CountryList,
   DateTimeType,
   ElementsSelector,
   LocalStorageData,
