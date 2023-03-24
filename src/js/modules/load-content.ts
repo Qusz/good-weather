@@ -67,8 +67,7 @@ export default function (): void {
           });
       }
     } else {
-        // TODO: replace with proper error handling
-        window.alert('Unexpected Error: Missing elelements from DOM');
+      showAlert('Unexpected Error: Some DOM elements are missing.');
     }
   });
 }
