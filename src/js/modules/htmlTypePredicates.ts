@@ -24,10 +24,17 @@ function isHTMLUListElement(
   return node !== null;
 }
 
+function isHTMLParagraphElement(
+  node: HTMLParagraphElement | null
+): node is HTMLParagraphElement {
+  return node !== null;
+}
+
 export {
   isHTMLElement,
   isHTMLFormElement,
   isHTMLDivElement,
   isHTMLInputElement,
-  isHTMLUListElement
+  isHTMLUListElement,
+  isHTMLParagraphElement
 };
