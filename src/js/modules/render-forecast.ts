@@ -1,5 +1,6 @@
 import getTime from 'utils/datetime';
 import getWeatherStatus from 'utils/weather-status';
+import clearHtml from 'utils/clear-html';
 
 import { OpenmeteoResponse } from 'types/types';
 
@@ -22,7 +23,7 @@ export default function (
 
   // Clear previous data if any
   if (tableBody.innerHTML) {
-    tableBody.innerHTML = '';
+    clearHtml(tableBody);
   }
 
   for (let i = 0; i < forecastPoints; i++) {
