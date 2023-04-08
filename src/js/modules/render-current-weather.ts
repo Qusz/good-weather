@@ -2,59 +2,14 @@ import getTime from 'utils/datetime';
 import getWeatherStatus from 'utils/weather-status';
 import getWindDirection from 'utils/get-wind-direction';
 import pickIcon from 'utils/pick-icon';
+import { isGuaranteedWeatherElements } from 'utils/guaranteed-elements';
 
-import { OpenmeteoResponse, GuaranteedElements } from 'types/types';
-import {
-  isHTMLDivElement,
-  isHTMLSpanElement,
-  isHTMLElement
-} from './html-type-predicates';
+import { OpenmeteoResponse, WeatherData } from 'types/types';
 
-type Elements = {
-  currentTemperature: HTMLDivElement | null;
-  currentWeather: HTMLDivElement | null;
-  realFeel: HTMLSpanElement | null;
-  wind: HTMLSpanElement | null;
-  pressure: HTMLSpanElement | null;
-  humidity: HTMLSpanElement | null;
-  sunrise: HTMLSpanElement | null;
-  sunset: HTMLSpanElement | null;
-  icon: HTMLElement | null;
-};
-
-type WeatherData = {
-  [key: string]: string;
-};
-
-function isGuaranteedElements(
-  elements: Elements | GuaranteedElements<Elements>
-): elements is GuaranteedElements<Elements> {
-  return (
-    isHTMLDivElement(elements.currentTemperature) &&
-    isHTMLDivElement(elements.currentWeather) &&
-    isHTMLSpanElement(elements.realFeel) &&
-    isHTMLSpanElement(elements.wind) &&
-    isHTMLSpanElement(elements.pressure) &&
-    isHTMLSpanElement(elements.humidity) &&
-    isHTMLSpanElement(elements.sunrise) &&
-    isHTMLSpanElement(elements.sunset) &&
-    isHTMLElement(elements.icon)
-  );
-}
+import { getCurrentWeatherElements } from './elements-selector';
 
 export default function (data: OpenmeteoResponse): void {
-  const ELEMENTS: Elements = {
-    currentTemperature: document.querySelector('[data-current-temperature]'),
-    currentWeather: document.querySelector('[data-current-weather]'),
-    realFeel: document.querySelector('[data-real-feel]'),
-    wind: document.querySelector('[data-wind]'),
-    pressure: document.querySelector('[data-pressure]'),
-    humidity: document.querySelector('[data-humidity]'),
-    sunrise: document.querySelector('[data-sunrise]'),
-    sunset: document.querySelector('[data-sunset]'),
-    icon: document.querySelector('[data-weather-icon-sprite]')
-  };
-
+  const currentWeatherElements = getCurrentWeatherElements();
   const currentTimeSpamp: string = data.current_weather.time;
   const currentTimeStampIndex: number =
     data.hourly.time.indexOf(currentTimeSpamp);
@@ -73,17 +28,17 @@ export default function (data: OpenmeteoResponse): void {
     sunset: getTime('short', data.daily.sunset[0])
   };
 
-  if (isGuaranteedElements(ELEMENTS)) {
-    ELEMENTS.currentTemperature.textContent = `${weatherData.temperature}°C`;
-    ELEMENTS.currentWeather.textContent = `${weatherData.weatherStatus}`;
-    ELEMENTS.realFeel.textContent = `${weatherData.realFeel}°C`;
-    ELEMENTS.wind.textContent = `${weatherData.windDirection}, ${weatherData.windSpeed} km/h`;
-    ELEMENTS.pressure.textContent = `${weatherData.pressure} hPa`;
-    ELEMENTS.humidity.textContent = `${weatherData.humidity}%`;
-    ELEMENTS.sunrise.textContent = `${weatherData.sunrise}`;
-    ELEMENTS.sunset.textContent = `${weatherData.sunset}`;
+  if (isGuaranteedWeatherElements(currentWeatherElements)) {
+    currentWeatherElements.currentTemperature.textContent = `${weatherData.temperature}°C`;
+    currentWeatherElements.currentWeather.textContent = `${weatherData.weatherStatus}`;
+    currentWeatherElements.realFeel.textContent = `${weatherData.realFeel}°C`;
+    currentWeatherElements.wind.textContent = `${weatherData.windDirection}, ${weatherData.windSpeed} km/h`;
+    currentWeatherElements.pressure.textContent = `${weatherData.pressure} hPa`;
+    currentWeatherElements.humidity.textContent = `${weatherData.humidity}%`;
+    currentWeatherElements.sunrise.textContent = `${weatherData.sunrise}`;
+    currentWeatherElements.sunset.textContent = `${weatherData.sunset}`;
 
-    ELEMENTS.icon.setAttributeNS(
+    currentWeatherElements.icon.setAttributeNS(
       'http://www.w3.org/1999/xlink',
       'xlink:href',
       `${baseIconPath}-${pickIcon(weatherData.weatherStatus)}`
