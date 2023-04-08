@@ -126,7 +126,7 @@ export default function (): void {
   document.addEventListener('click', (e: Event) => {
     if (
       e.target &&
-      !locationElements.searchForm.contains(e.target as HTMLElement) &&
+      !locationElements.searchForm.contains(e.target as Node) &&
       locationElements.searchResultsParent.style.display !== 'none'
     ) {
       clearHTML(locationElements.searchResultsList);
