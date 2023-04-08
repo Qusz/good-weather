@@ -4,7 +4,7 @@ export default async function (
   lat: string,
   lng: string
 ): Promise<OpenmeteoResponse> {
-  const url: URL = new URL('https://api.open-meteo.com/v1/forecast');
+  const url = new URL('https://api.open-meteo.com/v1/forecast');
   url.searchParams.set('latitude', lat.toString());
   url.searchParams.set('longitude', lng.toString());
   url.searchParams.set(
@@ -16,7 +16,7 @@ export default async function (
   url.searchParams.set('timezone', 'auto');
 
   try {
-    const request: Response = await fetch(url);
+    const request = await fetch(url);
 
     const response: OpenmeteoResponse = await request.json();
 
