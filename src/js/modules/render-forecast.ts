@@ -10,8 +10,9 @@ export default function (
 ): void {
   const currentHour: string = data.current_weather.time;
   const forecastPoints = 8;
+  const step = 2;
 
-  let step = 0;
+  let currnetPoint = 0;
   let currentIndex: number | null = null;
 
   // Find index of current hour
@@ -27,19 +28,21 @@ export default function (
   }
 
   for (let i = 0; i < forecastPoints; i++) {
-    step += 2;
+    currnetPoint += step;
 
     const newTableRow = document.createElement('tr') as HTMLTableRowElement;
     newTableRow.className = 'weather-card__forecast-table-row';
     newTableRow.innerHTML = `
       <td class="weather-card__forecast-table-col">
-        ${getTime('short', data.hourly.time[currentIndex! + step])}
+        ${getTime('short', data.hourly.time[currentIndex! + currnetPoint])}
       </td>
       <td class="weather-card__forecast-table-col">
-        ${data.hourly.temperature_2m[currentIndex! + step]}°C
+        ${data.hourly.temperature_2m[currentIndex! + currnetPoint]}°C
       </td>
       <td class="weather-card__forecast-table-col">
-        ${getWeatherStatus(data.hourly.weathercode[currentIndex! + step])}
+        ${getWeatherStatus(
+          data.hourly.weathercode[currentIndex! + currnetPoint]
+        )}
       </td>
     `;
 
