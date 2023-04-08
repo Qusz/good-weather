@@ -77,9 +77,9 @@ export default function (): void {
     }
   }, 300);
 
-  /*
+  /* **************
    * Events
-   */
+   **************** */
   locationElements.searchInput.addEventListener('keyup', handleSearch);
 
   // Choose location
