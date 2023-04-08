@@ -7,13 +7,14 @@ import { getCurrentDatetimeElements } from './elements-selector';
 export default function (time: string, timezone: string): void {
   const dateTimeElements = getCurrentDatetimeElements();
 
-  if (isGuaranteedDateTimeElements(dateTimeElements)) {
-    dateTimeElements.dateTimeBody.textContent = getDateTime(
-      'long',
-      time,
-      timezone
-    );
-  } else {
+  if (!isGuaranteedDateTimeElements(dateTimeElements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
+    return;
   }
+
+  dateTimeElements.dateTimeBody.textContent = getDateTime(
+    'long',
+    time,
+    timezone
+  );
 }
