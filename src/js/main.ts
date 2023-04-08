@@ -7,7 +7,9 @@ import search from './modules/location-search';
 import loadContent from './modules/load-content';
 
 (() => {
-  showForecast();
-  loadContent();
-  search();
+  window.addEventListener('DOMContentLoaded', () => {
+    showForecast();
+    loadContent();
+    search();
+  });
 })();
