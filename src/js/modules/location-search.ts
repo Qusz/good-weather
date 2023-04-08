@@ -5,7 +5,10 @@ import { LocalStorageData } from 'types/types';
 import clearHTML from 'utils/clear-html';
 import showAlert from 'utils/show-alert';
 import { saveLocation } from 'utils/local-storage';
-import { isGuaranteedLocationElements } from 'utils/guaranteed-elements';
+import {
+  isGuaranteedLocationElements,
+  isGuaranteedTableElements
+} from 'utils/guaranteed-elements';
 
 import openmeteo from '../APIs/openmeteo';
 import worldtime from '../APIs/worldtime';
@@ -16,12 +19,16 @@ import renderForecast from './render-forecast';
 import renderLocation from './render-location';
 import renderCurrentDatetime from './render-current-datetime';
 
-import { getLocationElements } from './elements-selector';
+import { getLocationElements, getTableElements } from './elements-selector';
 
 export default function (): void {
   const locationElements = getLocationElements();
+  const tableElements = getTableElements();
 
-  if (!isGuaranteedLocationElements(locationElements)) {
+  if (
+    !isGuaranteedLocationElements(locationElements) ||
+    !isGuaranteedTableElements(tableElements)
+  ) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }
@@ -101,7 +108,7 @@ export default function (): void {
         return data;
       })
       .then((data) => {
-        renderForecast(locationElements.tableBody, data);
+        renderForecast(tableElements.body, data);
         return data;
       })
       .then((data) => {
@@ -118,6 +125,7 @@ export default function (): void {
   // Close search result when clicked anywhere
   document.addEventListener('click', (e: Event) => {
     if (
+      e.target &&
       !locationElements.searchForm.contains(e.target as HTMLElement) &&
       locationElements.searchResultsParent.style.display !== 'none'
     ) {
