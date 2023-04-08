@@ -1,50 +1,28 @@
-import type { SetNonNullable } from 'type-fest';
-
-import { isHTMLDivElement, isHTMLSpanElement } from './html-type-predicates';
-
-type Elements = {
-  parent: HTMLDivElement | null;
-  toggle: HTMLDivElement | null;
-  caption: HTMLSpanElement | null;
-  body: HTMLDivElement | null;
-};
-
-type GuaranteedElements = SetNonNullable<Elements>;
-
-function isGuaranteedElements(
-  elements: Elements | GuaranteedElements
-): elements is GuaranteedElements {
-  return (
-    isHTMLDivElement(elements.parent) &&
-    isHTMLDivElement(elements.toggle) &&
-    isHTMLSpanElement(elements.caption) &&
-    isHTMLDivElement(elements.body)
-  );
-}
+import showAlert from 'utils/show-alert';
+import { isGuaranteedToggleForecastElements } from 'utils/guaranteed-elements';
+import { getToggleForecastElements } from './elements-selector';
 
 export default function (): void {
-  const ELEMENTS: Elements = {
-    parent: document.querySelector('[data-forecast]'),
-    toggle: document.querySelector('[data-forecast-header-wrapper]'),
-    caption: document.querySelector('[data-forecast-caption]'),
-    body: document.querySelector('[data-forecast-body]')
-  };
+  const elements = getToggleForecastElements();
 
   const activeClass = 'weather-card__forecast--active';
   const defaultCaption = 'Show forecast';
   const activeCaption = 'Hide forecast';
 
-  if (isGuaranteedElements(ELEMENTS)) {
-    ELEMENTS.toggle.addEventListener('click', () => {
-      ELEMENTS.parent.classList.toggle(activeClass);
-
-      if (ELEMENTS.body.style.maxHeight) {
-        ELEMENTS.body.style.maxHeight = '';
-        ELEMENTS.caption.textContent = defaultCaption;
-      } else {
-        ELEMENTS.body.style.maxHeight = `${ELEMENTS.body!.scrollHeight}px`;
-        ELEMENTS.caption.textContent = activeCaption;
-      }
-    });
+  if (!isGuaranteedToggleForecastElements(elements)) {
+    showAlert('Unexpected Error: Some DOM elements are missing.');
+    return;
   }
+
+  elements.toggle.addEventListener('click', () => {
+    elements.parent.classList.toggle(activeClass);
+
+    if (elements.body.style.maxHeight) {
+      elements.body.style.maxHeight = '';
+      elements.caption.textContent = defaultCaption;
+    } else {
+      elements.body.style.maxHeight = `${elements.body!.scrollHeight}px`;
+      elements.caption.textContent = activeCaption;
+    }
+  });
 }
