@@ -2,6 +2,7 @@ import getTime from 'utils/datetime';
 import getWeatherStatus from 'utils/weather-status';
 import getWindDirection from 'utils/get-wind-direction';
 import pickIcon from 'utils/pick-icon';
+import showAlert from 'utils/show-alert';
 import { isGuaranteedWeatherElements } from 'utils/guaranteed-elements';
 
 import { OpenmeteoResponse, WeatherData } from 'types/types';
@@ -28,20 +29,22 @@ export default function (data: OpenmeteoResponse): void {
     sunset: getTime('short', data.daily.sunset[0])
   };
 
-  if (isGuaranteedWeatherElements(currentWeatherElements)) {
-    currentWeatherElements.currentTemperature.textContent = `${weatherData.temperature}°C`;
-    currentWeatherElements.currentWeather.textContent = `${weatherData.weatherStatus}`;
-    currentWeatherElements.realFeel.textContent = `${weatherData.realFeel}°C`;
-    currentWeatherElements.wind.textContent = `${weatherData.windDirection}, ${weatherData.windSpeed} km/h`;
-    currentWeatherElements.pressure.textContent = `${weatherData.pressure} hPa`;
-    currentWeatherElements.humidity.textContent = `${weatherData.humidity}%`;
-    currentWeatherElements.sunrise.textContent = `${weatherData.sunrise}`;
-    currentWeatherElements.sunset.textContent = `${weatherData.sunset}`;
-
-    currentWeatherElements.icon.setAttributeNS(
-      'http://www.w3.org/1999/xlink',
-      'xlink:href',
-      `${baseIconPath}-${pickIcon(weatherData.weatherStatus)}`
-    );
+  if (!isGuaranteedWeatherElements(currentWeatherElements)) {
+    showAlert('Unexpected Error: Some DOM elements are missing.');
+    return;
   }
+
+  currentWeatherElements.currentTemperature.textContent = `${weatherData.temperature}°C`;
+  currentWeatherElements.currentWeather.textContent = `${weatherData.weatherStatus}`;
+  currentWeatherElements.realFeel.textContent = `${weatherData.realFeel}°C`;
+  currentWeatherElements.wind.textContent = `${weatherData.windDirection}, ${weatherData.windSpeed} km/h`;
+  currentWeatherElements.pressure.textContent = `${weatherData.pressure} hPa`;
+  currentWeatherElements.humidity.textContent = `${weatherData.humidity}%`;
+  currentWeatherElements.sunrise.textContent = `${weatherData.sunrise}`;
+  currentWeatherElements.sunset.textContent = `${weatherData.sunset}`;
+  currentWeatherElements.icon.setAttributeNS(
+    'http://www.w3.org/1999/xlink',
+    'xlink:href',
+    `${baseIconPath}-${pickIcon(weatherData.weatherStatus)}`
+  );
 }
