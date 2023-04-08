@@ -47,6 +47,48 @@ interface LocalStorageData {
   lon: string;
 }
 
+interface WeatherElements {
+  currentTemperature: HTMLDivElement | null;
+  currentWeather: HTMLDivElement | null;
+  realFeel: HTMLSpanElement | null;
+  wind: HTMLSpanElement | null;
+  pressure: HTMLSpanElement | null;
+  humidity: HTMLSpanElement | null;
+  sunrise: HTMLSpanElement | null;
+  sunset: HTMLSpanElement | null;
+  icon: HTMLElement | null;
+}
+
+interface LocationElements {
+  searchForm: HTMLFormElement | null;
+  searchResultsParent: HTMLDivElement | null;
+  searchInput: HTMLInputElement | null;
+  searchResultsList: HTMLUListElement | null;
+}
+
+interface DateTimeElements {
+  dateTimeBody: HTMLParagraphElement | null;
+}
+
+interface RenderLocationElements {
+  locationBody: HTMLParagraphElement | null;
+}
+
+interface ToggleForecastElemnets {
+  parent: HTMLDivElement | null;
+  toggle: HTMLDivElement | null;
+  caption: HTMLSpanElement | null;
+  body: HTMLDivElement | null;
+}
+
+interface TableElements {
+  body: HTMLElement | null;
+}
+
+type WeatherData = {
+  [key: string]: string;
+};
+
 type GuaranteedElements<T> = SetNonNullable<T>;
 
 type DateTimeType = 'short' | 'long';
@@ -61,5 +103,12 @@ export {
   ElementsSelector,
   LocalStorageData,
   GeoJSResponse,
-  GuaranteedElements
+  GuaranteedElements,
+  WeatherElements,
+  WeatherData,
+  LocationElements,
+  DateTimeElements,
+  RenderLocationElements,
+  ToggleForecastElemnets,
+  TableElements
 };
