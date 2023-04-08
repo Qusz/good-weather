@@ -1,7 +1,7 @@
 import { GeoJSResponse } from 'types/types';
 
 export default async function (): Promise<GeoJSResponse> {
-  const url: string = `https://get.geojs.io/v1/ip/geo.json`;
+  const url = `https://get.geojs.io/v1/ip/geo.json`;
 
   try {
     const request = await fetch(url);
