@@ -12,6 +12,9 @@ export default function (
   const forecastPoints = 8;
   const step = 2;
 
+  const tableRowClass = 'weather-card__forecast-table-row';
+  const tableColClass = 'weather-card__forecast-table-col';
+
   let currnetPoint = 0;
   let currentIndex: number | null = null;
 
@@ -31,15 +34,15 @@ export default function (
     currnetPoint += step;
 
     const newTableRow = document.createElement('tr') as HTMLTableRowElement;
-    newTableRow.className = 'weather-card__forecast-table-row';
+    newTableRow.className = tableRowClass;
     newTableRow.innerHTML = `
-      <td class="weather-card__forecast-table-col">
+      <td class="${tableColClass}">
         ${getTime('short', data.hourly.time[currentIndex! + currnetPoint])}
       </td>
-      <td class="weather-card__forecast-table-col">
+      <td class="${tableColClass}">
         ${data.hourly.temperature_2m[currentIndex! + currnetPoint]}°C
       </td>
-      <td class="weather-card__forecast-table-col">
+      <td class="${tableColClass}">
         ${getWeatherStatus(
           data.hourly.weathercode[currentIndex! + currnetPoint]
         )}
