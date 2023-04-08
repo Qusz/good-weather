@@ -1,11 +1,14 @@
-import { isHTMLParagraphElement } from './html-type-predicates';
+import { isGuaranteedRenderLocationElements } from 'utils/guaranteed-elements';
+import showAlert from 'utils/show-alert';
+
+import { getRenderLocationElements } from './elements-selector';
 
 export default function (city: string, country: string): void {
-  const element: HTMLParagraphElement | null = document.querySelector(
-    '.weather-card__location'
-  );
+  const elements = getRenderLocationElements();
 
-  if (isHTMLParagraphElement(element)) {
-    element.textContent = `${city}, ${country}`;
+  if (isGuaranteedRenderLocationElements(elements)) {
+    elements.locationBody.textContent = `${city}, ${country}`;
+  } else {
+    showAlert('Unexpected Error: Some DOM elements are missing.');
   }
 }
