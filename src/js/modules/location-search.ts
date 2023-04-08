@@ -72,7 +72,7 @@ export default function (): void {
         });
 
       // Abort search if query is empty
-    } else if (!query) {
+    } else {
       locationElements.searchResultsParent.style.display = 'none';
     }
   }, 300);
