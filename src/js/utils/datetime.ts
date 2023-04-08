@@ -5,7 +5,7 @@ export default function (
   time: string,
   timezone?: string
 ): string {
-  const date: number = Date.parse(time);
+  const date = Date.parse(time);
 
   let options: Intl.DateTimeFormatOptions = {};
 
@@ -24,8 +24,6 @@ export default function (
     };
   }
 
-  const timeNow: string = new Intl.DateTimeFormat('en-GB', options).format(
-    date
-  );
+  const timeNow = new Intl.DateTimeFormat('en-GB', options).format(date);
   return timeNow;
 }
