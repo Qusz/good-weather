@@ -6,9 +6,10 @@ import { getRenderLocationElements } from './elements-selector';
 export default function (city: string, country: string): void {
   const elements = getRenderLocationElements();
 
-  if (isGuaranteedRenderLocationElements(elements)) {
-    elements.locationBody.textContent = `${city}, ${country}`;
-  } else {
+  if (!isGuaranteedRenderLocationElements(elements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
+    return;
   }
+
+  elements.locationBody.textContent = `${city}, ${country}`;
 }
