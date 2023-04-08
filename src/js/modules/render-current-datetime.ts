@@ -1,12 +1,19 @@
+import { isGuaranteedDateTimeElements } from 'utils/guaranteed-elements';
 import getDateTime from 'utils/datetime';
-import { isHTMLParagraphElement } from './html-type-predicates';
+import showAlert from 'utils/show-alert';
+
+import { getCurrentDatetimeElements } from './elements-selector';
 
 export default function (time: string, timezone: string): void {
-  const element: HTMLParagraphElement | null = document.querySelector(
-    '.weather-card__date'
-  );
+  const dateTimeElements = getCurrentDatetimeElements();
 
-  if (isHTMLParagraphElement(element)) {
-    element.textContent = getDateTime('long', time, timezone);
+  if (isGuaranteedDateTimeElements(dateTimeElements)) {
+    dateTimeElements.dateTimeBody.textContent = getDateTime(
+      'long',
+      time,
+      timezone
+    );
+  } else {
+    showAlert('Unexpected Error: Some DOM elements are missing.');
   }
 }
