@@ -10,7 +10,7 @@ import {
 function getCurrentWeatherElements(): WeatherElements {
   return {
     currentTemperature: document.querySelector('[data-current-temperature]'),
-    currentWeather: document.querySelector('[data-current-temperature]'),
+    currentWeather: document.querySelector('[data-current-weather]'),
     realFeel: document.querySelector('[data-real-feel]'),
     wind: document.querySelector('[data-wind]'),
     pressure: document.querySelector('[data-pressure]'),
