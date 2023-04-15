@@ -1,16 +1,19 @@
+import { OpenmeteoResponse, WeatherData } from '@/js/types';
+
 import getTime from 'utils/datetime';
 import getWeatherStatus from 'utils/weather-status';
 import getWindDirection from 'utils/get-wind-direction';
 import pickIcon from 'utils/pick-icon';
 import showAlert from 'utils/show-alert';
-import { isGuaranteedWeatherElements } from 'utils/guaranteed-elements';
 
-import { OpenmeteoResponse, WeatherData } from 'types/types';
-
-import { getCurrentWeatherElements } from './elements-selector';
+import TypeGuard from './type-guard';
+import ElementsSelector from './elements-selector';
 
 export default function (data: OpenmeteoResponse): void {
-  const currentWeatherElements = getCurrentWeatherElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
+
+  const currentWeatherElements = elementsSelector.getCurrentWeatherElements();
   const currentTimeSpamp: string = data.current_weather.time;
   const currentTimeStampIndex: number =
     data.hourly.time.indexOf(currentTimeSpamp);
@@ -29,7 +32,7 @@ export default function (data: OpenmeteoResponse): void {
     sunset: getTime('short', data.daily.sunset[0])
   };
 
-  if (!isGuaranteedWeatherElements(currentWeatherElements)) {
+  if (!typeGuard.isGuaranteedWeatherElements(currentWeatherElements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }

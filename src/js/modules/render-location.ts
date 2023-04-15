@@ -1,12 +1,14 @@
-import { isGuaranteedRenderLocationElements } from 'utils/guaranteed-elements';
 import showAlert from 'utils/show-alert';
-
-import { getRenderLocationElements } from './elements-selector';
+import ElementsSelector from './elements-selector';
+import TypeGuard from './type-guard';
 
 export default function (city: string, country: string): void {
-  const elements = getRenderLocationElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
 
-  if (!isGuaranteedRenderLocationElements(elements)) {
+  const elements = elementsSelector.getRenderLocationElements();
+
+  if (!typeGuard.isGuaranteedRenderLocationElements(elements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }

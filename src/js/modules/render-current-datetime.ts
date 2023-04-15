@@ -1,13 +1,15 @@
-import { isGuaranteedDateTimeElements } from 'utils/guaranteed-elements';
 import getDateTime from 'utils/datetime';
 import showAlert from 'utils/show-alert';
-
-import { getCurrentDatetimeElements } from './elements-selector';
+import ElementsSelector from './elements-selector';
+import TypeGuard from './type-guard';
 
 export default function (time: string, timezone: string): void {
-  const dateTimeElements = getCurrentDatetimeElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
 
-  if (!isGuaranteedDateTimeElements(dateTimeElements)) {
+  const dateTimeElements = elementsSelector.getCurrentDatetimeElements();
+
+  if (!typeGuard.isGuaranteedDateTimeElements(dateTimeElements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }

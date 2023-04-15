@@ -1,15 +1,18 @@
 import showAlert from 'utils/show-alert';
-import { isGuaranteedToggleForecastElements } from 'utils/guaranteed-elements';
-import { getToggleForecastElements } from './elements-selector';
+import TypeGuard from './type-guard';
+import ElementsSelector from './elements-selector';
 
 export default function (): void {
-  const elements = getToggleForecastElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
+
+  const elements = elementsSelector.getToggleForecastElements();
 
   const activeClass = 'weather-card__forecast--active';
   const defaultCaption = 'Show forecast';
   const activeCaption = 'Hide forecast';
 
-  if (!isGuaranteedToggleForecastElements(elements)) {
+  if (!typeGuard.isGuaranteedToggleForecastElements(elements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }

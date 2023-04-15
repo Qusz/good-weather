@@ -1,14 +1,12 @@
 import debounce from 'lodash.debounce';
 
-import { LocalStorageData } from 'types/types';
+import { LocalStorageData } from '@/js/types';
 
 import clearHTML from 'utils/clear-html';
 import showAlert from 'utils/show-alert';
 import { saveLocation } from 'utils/local-storage';
-import {
-  isGuaranteedLocationElements,
-  isGuaranteedTableElements
-} from 'utils/guaranteed-elements';
+
+import TypeGuard from '@/js/modules/type-guard';
 
 import openmeteo from '../APIs/openmeteo';
 import worldtime from '../APIs/worldtime';
@@ -19,15 +17,18 @@ import renderForecast from './render-forecast';
 import renderLocation from './render-location';
 import renderCurrentDatetime from './render-current-datetime';
 
-import { getLocationElements, getTableElements } from './elements-selector';
+import ElementsSelector from './elements-selector';
 
 export default function (): void {
-  const locationElements = getLocationElements();
-  const tableElements = getTableElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
+
+  const locationElements = elementsSelector.getLocationElements();
+  const tableElements = elementsSelector.getTableElements();
 
   if (
-    !isGuaranteedLocationElements(locationElements) ||
-    !isGuaranteedTableElements(tableElements)
+    !typeGuard.isGuaranteedLocationElements(locationElements) ||
+    !typeGuard.isGuaranteedTableElements(tableElements)
   ) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;

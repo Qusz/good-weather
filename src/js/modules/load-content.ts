@@ -1,23 +1,25 @@
 import { checkLocalStorage, getSavedLocation } from 'utils/local-storage';
 import showAlert from 'utils/show-alert';
 
-import { isGuaranteedTableElements } from 'utils/guaranteed-elements';
 import getLocation from '../APIs/geo-js';
 import openmeteo from '../APIs/openmeteo';
 import worldtime from '../APIs/worldtime';
 
+import TypeGuard from './type-guard';
 import renderCurrentWeather from './render-current-weather';
 import renderForecast from './render-forecast';
 import renderLocation from './render-location';
 import renderCurrentDatetime from './render-current-datetime';
-
-import { getTableElements } from './elements-selector';
+import ElementsSelector from './elements-selector';
 
 export default function (): void {
-  const localStorageExists = checkLocalStorage();
-  const tableElements = getTableElements();
+  const elementsSelector = new ElementsSelector();
+  const typeGuard = new TypeGuard();
 
-  if (!isGuaranteedTableElements(tableElements)) {
+  const localStorageExists = checkLocalStorage();
+  const tableElements = elementsSelector.getTableElements();
+
+  if (!typeGuard.isGuaranteedTableElements(tableElements)) {
     showAlert('Unexpected Error: Some DOM elements are missing.');
     return;
   }
