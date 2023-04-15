@@ -2,7 +2,7 @@ import getTime from 'utils/datetime';
 import getWeatherStatus from 'utils/weather-status';
 import clearHtml from 'utils/clear-html';
 
-import { OpenmeteoResponse } from 'types/types';
+import { OpenmeteoResponse } from '@/js/types';
 
 export default function (
   tableBody: HTMLElement,

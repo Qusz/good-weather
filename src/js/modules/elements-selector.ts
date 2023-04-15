@@ -3,9 +3,9 @@ import {
   LocationElements,
   DateTimeElements,
   RenderLocationElements,
-  ToggleForecastElemnets,
+  ToggleForecastElements,
   TableElements
-} from 'types/types';
+} from '@/js/types';
 
 function getCurrentWeatherElements(): WeatherElements {
   return {
@@ -42,7 +42,7 @@ function getRenderLocationElements(): RenderLocationElements {
   };
 }
 
-function getToggleForecastElements(): ToggleForecastElemnets {
+function getToggleForecastElements(): ToggleForecastElements {
   return {
     parent: document.querySelector('[data-forecast]'),
     toggle: document.querySelector('[data-forecast-header-wrapper]'),

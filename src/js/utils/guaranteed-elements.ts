@@ -4,9 +4,9 @@ import {
   LocationElements,
   DateTimeElements,
   RenderLocationElements,
-  ToggleForecastElemnets,
+  ToggleForecastElements,
   TableElements
-} from 'types/types';
+} from '@/js/types';
 
 import {
   isHTMLDivElement,
@@ -58,8 +58,8 @@ function isGuaranteedRenderLocationElements(
 }
 
 function isGuaranteedToggleForecastElements(
-  elements: ToggleForecastElemnets | GuaranteedElements<ToggleForecastElemnets>
-): elements is GuaranteedElements<ToggleForecastElemnets> {
+  elements: ToggleForecastElements | GuaranteedElements<ToggleForecastElements>
+): elements is GuaranteedElements<ToggleForecastElements> {
   return (
     isHTMLDivElement(elements.parent) &&
     isHTMLDivElement(elements.toggle) &&

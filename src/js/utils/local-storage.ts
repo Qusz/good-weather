@@ -1,4 +1,4 @@
-import { LocalStorageData } from 'types/types';
+import { LocalStorageData } from '@/js/types';
 
 function checkLocalStorage(): boolean {
   if (!localStorage.length) {
