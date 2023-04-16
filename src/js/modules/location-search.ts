@@ -1,6 +1,6 @@
-import debounce from 'lodash.debounce';
+import type { LocalStorageData } from '@/js/types';
 
-import { LocalStorageData } from '@/js/types';
+import debounce from 'lodash.debounce';
 
 import clearHTML from 'utils/clear-html';
 import showAlert from 'utils/show-alert';
